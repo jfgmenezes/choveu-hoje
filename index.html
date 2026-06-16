@@ -6,26 +6,41 @@
     <script src="dados.js"></script>
     <style>
         body { font-family: sans-serif; padding: 20px; background: #f8f9fa; }
-        .controles { background: white; padding: 20px; border-radius: 8px; display: flex; gap: 10px; margin-bottom: 20px; }
+        .controles { background: white; padding: 20px; border-radius: 8px; display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .inputs { display: flex; gap: 10px; }
+        .legenda { display: flex; gap: 20px; font-size: 14px; color: #555; }
+        .item-legenda { display: flex; align-items: center; gap: 8px; }
         .grid-anos { display: grid; grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); gap: 8px; }
         .bloco { height: 40px; display: flex; align-items: center; justify-content: center; font-weight: bold; border-radius: 4px; color: white; }
         .bloco-azul { background-color: #0000FF; }
         .bloco-amarelo { background-color: #FFCC00; }
         .bloco-cinza { background-color: #ccc; }
-        .bloco-carregando { background-color: #eee; color: #666; border: 1px dashed #666; }
     </style>
 </head>
 <body>
     <h2>Já choveu nesse dia?</h2>
+    
     <div class="controles">
-        <select id="selectCidade"></select>
-        <input type="text" id="inputData" value="15/06">
-        <button onclick="buscar()">Buscar</button>
+        <div class="inputs">
+            <select id="selectCidade"></select>
+            <input type="text" id="inputData" value="15/06" style="width: 60px; text-align: center;">
+            <button onclick="buscar()">Buscar</button>
+        </div>
+        <div class="legenda">
+            <div class="item-legenda">
+                <div class="bloco bloco-azul" style="width: 20px; height: 20px;"></div>
+                <span>Choveu</span>
+            </div>
+            <div class="item-legenda">
+                <div class="bloco bloco-amarelo" style="width: 20px; height: 20px;"></div>
+                <span>Não Choveu</span>
+            </div>
+        </div>
     </div>
+
     <div class="grid-anos" id="gridAnos"></div>
 
     <script>
-        // Preenche o select com as cidades do dados.js
         const select = document.getElementById('selectCidade');
         Object.keys(historicoChuva).forEach(c => select.innerHTML += `<option value="${c}">${c}</option>`);
 
@@ -43,7 +58,6 @@
                 div.innerText = ano;
                 grid.appendChild(div);
             }
-            // Nota: Adicione a lógica de buscar 2026 aqui se necessário
         }
     </script>
 </body>
